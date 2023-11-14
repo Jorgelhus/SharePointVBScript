@@ -1,8 +1,8 @@
 # SharePointVBScript
-Simple Script to create a folder on the root of a Sharepoint Portal
+Script Process to create a folder on the root of a Sharepoint Portal
 
 ### CreateFolder.vbs
-Generates the folder on the root of the selected site (using **site-id** as reference).
+Generates the folder on the root of the selected site (using **site-id** and **drive-id** as reference).
 
 ### CreateFolderStructure.vbs
 Generates folder inside another folder, following a pre-defined structure (requires **drive-id** and **parent-folder-id** as reference).
