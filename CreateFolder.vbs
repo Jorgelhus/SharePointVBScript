@@ -14,6 +14,7 @@
 ' Optional Parameters:
 '   - The following optional parameters can be adjusted to change script behavior:
 '     - site_id - Your SharePoint site ID.
+'     - drive_id - Your SharePoint drive ID (Document Library).
 '     - graph_url - Microsoft Graph API URL.
 '     - client_id - Azure AD app client ID.
 '     - client_secret - Azure AD app client secret.
@@ -49,18 +50,21 @@ End If
 Dim folder_name
 folder_name = WScript.Arguments(0)
 
-' Define your SharePoint site ID and Graph API URL
-Dim site_id
+' Define your SharePoint site ID, drive ID, and Graph API URL
+Dim site_id, drive_id
 site_id = "siteid"  ' Use your site ID
+drive_id = "driveid" ' Use your drive ID
 
 Dim graph_url
-graph_url = "https://graph.microsoft.com/v1.0/sites/" & site_id & "/drive/root:/"
+graph_url = "https://graph.microsoft.com/v1.0/sites/" & site_id & "/drives/" & drive_id & "/root:/"
+
 
 ' Define your Azure AD app registration details
 Dim client_id, client_secret, tenant_id
 client_id = "clientid"
-client_secret = "clientsecret"
-tenant_id = "tentantid"
+client_secret = "secretid"
+tenant_id = "tenantid"
+
 
 ' Create an HTTP request object
 Dim httpRequest
