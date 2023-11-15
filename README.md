@@ -12,3 +12,6 @@ Script in Python to be ran for the first time on setup so the **drive-id** can b
 
 ### Capture ParentFolderID.py
 Script in Python to be ran for the first time on setup so the **parent-folder-id** can be captured (output on the console).
+
+### FolderWMeta.py
+Script in Python that creates a folder on the sharepoint, get the list of the files, detect the id of the file in regards to the list and updates the "Client" column
