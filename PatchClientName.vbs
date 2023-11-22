@@ -378,17 +378,19 @@ If httpRequest.status = 200 Then
 
     ' Run the additional GET request
     Dim get_list_url, get_list_response
-    get_list_url = "https://graph.microsoft.com/v1.0/sites/" & site_id & "/lists/" & list_id & "?expand=columns,items(expand=fields)"
+    get_list_url = "https://graph.microsoft.com/v1.0/sites/" & site_id & "/lists/" & list_id & "/items?expand=columns,items(expand=fields)&$filter=fields/FileLeafRef eq '" & folder_name & "'"
 
     ' Send a GET request to get the list
     httpRequest.Open HTTP_GET, get_list_url, False
     httpRequest.setRequestHeader "Authorization", "Bearer " & access_token
     httpRequest.setRequestHeader "Content-Type", "application/json"
+    httpRequest.setRequestHeader "Prefer", "HonorNonIndexedQueriesWarningMayFailRandomly"
     httpRequest.send
 
     ' Check the response status for the GET request
     If httpRequest.status = 200 Then
         WScript.Echo "GET request for the list succeeded."
+        WScript.Echo httpRequest.responseText
 
         ' Use VbsJson to parse the JSON response
         Dim jsonParser
@@ -443,11 +445,11 @@ Function FindFolderId(folderName, jsonObject)
     If IsObject(jsonObject) Then
         'WScript.Echo "Phase 1"
         ' Check if 'items' property is an array
-        If IsArray(jsonObject("items")) Then
+        If IsArray(jsonObject("value")) Then
             'WScript.Echo "Phase 2 - Array found"
             ' Iterate through each item in the 'items' array
             Dim item
-            For Each item In jsonObject("items")
+            For Each item In jsonObject("value")
                 'WScript.Echo "Phase 3"
                 ' Output the entire 'item' object for inspection
                 ' PrintJsonObject item, 0 ' This function should handle nested objects and arrays
@@ -475,9 +477,6 @@ Function FindFolderId(folderName, jsonObject)
     WScript.Echo "No Phase"
     WScript.Echo "Folder not found"
 End Function
-
-
-
 
 
 Sub PrintJsonObject(obj, indent)
